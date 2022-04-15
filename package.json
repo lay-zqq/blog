@@ -1,0 +1,21 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "归零博客",
+  "dependencies": {
+    "vuepress": "^1.9.7",
+    "element-ui": "^2.10.0"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs --temp .temp",
+    "docs:build": "vuepress build docs"
+  },
+  "keywords": [
+    "vue",
+    "vue源码分析",
+    "lay-zqq",
+    "曾同学的博客",
+    "曾同学"
+  ],
+  "devDependencies": {}
+}
