@@ -23,12 +23,16 @@ module.exports = {
         text: '开发bug解放方法',
         link: '/solveBug/'
       },
+      {
+        text: '88', 
+        link: '/interview/'
+      },
     ],
-    // sidebar: {
-    //   '/webpack/webpack/': [webpackSidebar],
-    //   '/vueAnalysis/': vueAnalysisSidebar,
-    //   '/vueNextAnalysis/': vueNextAnalysisSidebar
-    // }
+    sidebar: {
+      '/webpack/webpack/': [webpackSidebar],
+      '/vueAnalysis/': vueAnalysisSidebar,
+      '/vueNextAnalysis/': vueNextAnalysisSidebar,
+    }
   },
   configureWebpack: {
     resolve: {

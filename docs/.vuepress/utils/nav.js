@@ -198,5 +198,6 @@ const vueNextAnalysisSidebar = [
 module.exports = {
   webpackSidebar,
   vueAnalysisSidebar,
-  vueNextAnalysisSidebar
+  vueNextAnalysisSidebar,
+  vueInterviewSidebar
 }
