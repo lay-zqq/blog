@@ -56,4 +56,55 @@ display: flex;属性 align-self 定义子元素的位置
 * 6 position: inherit; 规定应该从父元素继承position 属性的值
 
 * 7 position: initial 设置该属性为默认值
+
+### 盒子在页面水平垂直居中
+**方法一：已知盒子宽高**
+```css
+  div {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+  }
+```
+
+**方法二：盒子未知宽高**
+```css
+  div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  }
+```
+
+### css选择器优先级顺序
+
+* **ID选择器，如** #box {}
+* **类选择器，如** 。box {}
+* **属性选择器，如** a[href='baidu.com'] {}
+* **伪类选择器，如** :hover {}
+* **伪元素选择器，如** ::before {}
+* **标签选择器，如** div {}
+* **通配选择器，如** * {}
+
+### 空元素
+
+::: tip
+  既没有内容的HTML元素，例如： br、meta、hr、link、input、img
+:::
+
+### 初始化css样式原因
+
+**1 浏览器差异**
+
+**不同浏览器对有些标签的默认值是不同的，如果没有对css进行初始化会出现浏览器之间的页面显示差异**
+
+**2 提高编码质量**
+
+**如果不初始化，整个页面做完会很糟糕，重复的css样式很多。**
+
+
  

@@ -1,7 +1,4 @@
 {
-  "name": "blog",
-  "version": "1.0.0",
-  "description": "归零博客",
   "dependencies": {
     "vuepress": "^1.9.7",
     "element-ui": "^2.10.0"

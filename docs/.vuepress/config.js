@@ -27,6 +27,10 @@ module.exports = {
         text: '88', 
         link: '/interview/'
       },
+      {
+        text: '开发技巧',
+        link: '/developmentSkills/'
+      }
     ],
     sidebar: {
       '/webpack/webpack/': [webpackSidebar],
