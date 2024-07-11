@@ -28,8 +28,8 @@ module.exports = {
     repoLabel: 'Github',
     nav: [
       {
-        text: 'js',
-        link: '/solveBug/'
+        text: '知识汇总',
+        link: '/knowledge/'
       },
       {
         text: '88', 
