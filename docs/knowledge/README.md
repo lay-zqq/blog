@@ -158,7 +158,62 @@ $ npm run build-css
       content: '',
       display: inline-block;
       width: 100px;
-      height: 10px'
+      height: 10px;
+    }
+    &__content {
+      width: 100px;
+      height: 100px;
+      &_title {
+        color: #333;
+        font-weight: 600;
+        font-size: 16px;
+      }
     }
   }
 ```
+编译生成
+```scss
+.box:hover {
+  color: darkblue;
+}
+.box:active {
+  color: navy;
+}
+.box::after {
+  content: '',
+  display: inline-block;
+  width: 100px;
+  height: 10px;
+}
+.box__content {
+  width: 100px;
+  height: 100px;
+}
+.box__content_title {
+  color: #333;
+  font-weight: 600;
+  font-size: 16px;
+}
+```
+### 继承样式也称（占位符选择器%）
+`SASS`支持继承，使一个选择器可以继承另一个选择器的样式。使用 `@extend` 实现继承。
+需要使用这个样式就使用`@extend`引用，不需要的时候这块代码也不会编译到最终的css样式中
+
+```scss
+%message-shared {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+// 引用，占位符代码编译到最终的css样式里面
+.message {
+  @extend %message-shared;
+  background-color: #f0f0f0;
+}
+// 不引用，占位符代码不会编译到css样式里面
+.success { 
+  border-color: green;
+}
+```
+
+### 运算
