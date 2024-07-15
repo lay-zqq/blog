@@ -142,9 +142,9 @@ $ npm run build-css
   @include border-radius(10px); 
 }
 ```
-### 父级选择器
+### 组合选择器(父级选择器)
 
-在 `SCSS 中`，父级选择器 `&` 是一个非常强大的特性，它允许你在嵌套规则中引用父级选择器。这使得编写复杂的 `CSS` 变得更加简洁和直观。它使用`&`代表外层的父级选择器
+在 `SCSS 中`，组合选择器 `&` 是一个非常强大的特性，它允许你在嵌套规则中引用父级选择器。这使得编写复杂的 `CSS` 变得更加简洁和直观。它使用`&`代表外层的父级选择器
 ```scss
   .box {
     &:hover {
@@ -217,3 +217,180 @@ $ npm run build-css
 ```
 
 ### 运算
+
+`SASS`支持数学运算，可以在CSS中进行加减乘除等操作。
+::: tip
+ `CSS3` 的 `calc()` 函数允许我们在属性值中执行数学计算操作。`calc()`可以使用`+、-、*`和`/`数学运算符，但它们在使用方法上有所不同。 加法`(+)`和减法`(-)`要求这两个数都是长度。
+:::
+
+```scss
+.container {
+  width: 100%;
+}
+
+aside {
+  width: 300px;
+}
+
+main {
+  width: calc(100% - 300px);
+}
+.right {
+  margin: calc(30px / 10px);
+}
+.left {
+  padding: calc(10px * 3);
+}
+
+```
+
+### 函数
+
+::: tip
+`Sass`函数提供了强大的工具来操作颜色、数值、字符串、列表和映射，使你的样式表更具动态性和可维护性。通过组合和自定义这些函数，你可以大大简化你的`CSS`代码，提升开发效率。
+:::
+**1. 颜色函数**
+
+`lighten($color, $amount)` 使颜色变亮。
+```scss
+$base-color: #ff5500;
+.lighten-example {
+  width: 100px;
+  height: 100px;
+  background: lighten($base-color, 20%);
+}
+``` 
+这是没有使用`lighten`前的图片效果
+
+![alt text](./image/linghten-black.png)
+
+这是执行`lighten`之后的效果图
+
+![alt text](./image/linghten-active.png)
+
+`darken($color, $amount)` 使颜色变暗。
+```scss
+$base-color: #ff5500;
+.darken-example {
+  width: 100px;
+  height: 100px;
+  background: darken($base-color, 20%);
+}
+``` 
+这是执行`darken`之后的效果图
+
+![alt text](./image/darken.png)
+
+`rgba($color, $alpha)` 设置颜色的透明度。
+```scss
+$base-color: #ff5500;
+.rgba-example {
+  width: 100px;
+  height: 100px;
+  background: rgba($base-color, 0.5);
+}
+``` 
+这是执行`rgba`之后的效果图
+
+![alt text](./image/rgba.png)
+
+**2. 数学函数**
+`percentage($value)` 将一个数值转换为百分比。
+```scss
+$decimal: 0.5;
+.percentage-example {
+  width: percentage($decimal);
+}
+```
+`round($number)` 对数值进行四舍五入。
+```scss
+$number: 1.5;
+.round-example {
+  width: round($number) * 1rem;
+}
+```
+
+**3. 字符串函数**
+
+`quote($string)` 将字符串包裹在引号中。
+```scss
+$unquoted-string: hello;
+.quote-example {
+  content: quote($unquoted-string);
+}
+```
+`unquote($string)` 移除字符串中的引号。
+```scss
+$unquote-string: hello;
+.quote-example {
+  content: unquote($unquote-string);
+}
+```
+
+**4. 列表函数**
+
+`length($list)` 返回列表的长度。
+```scss
+$list: 1px solid red;
+.length-example {
+  content: length($list);
+}
+
+// 编译后的结果
+.length-example {
+  content: 3;
+}
+```
+
+`nth($list, $n)` 返回列表中第n个元素。
+```scss
+$list: 1px solid red;
+.nth-example {
+  border: nth($list, 2);
+}
+
+// 编译后的结果
+.nth-example {
+  border: solid;
+}
+```
+
+**5. 映射（Map）函数**
+
+`map-get($map, $key)` 从映射中获取值。
+
+```scss
+$map: (key1: 'name', key2: 'age');
+.map-get-example {
+  content: map-get($map, key1);
+}
+// 编译后的结果
+.map-get-example {
+  content: 'name';
+}
+```
+
+**6. 内置函数组合**
+
+可以多个函数组合使用，例如：
+```scss
+$base-color: #333;
+.combined-example {
+  color: lighten(rgba($base-color, 0.5), 20%);
+}
+```
+
+**7. 自定义函数**
+
+你还可以定义自己的 `Sass`函数，使用`@function`指令。例如：
+
+```scss
+@function double($number) {
+  @return $number * 2;
+}
+
+.custom-function-example {
+  width: double(10px);
+}
+```
+
