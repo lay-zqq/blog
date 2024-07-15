@@ -244,12 +244,12 @@ main {
 
 ```
 
-### 函数
+## 函数
 
 ::: tip
 `Sass`函数提供了强大的工具来操作颜色、数值、字符串、列表和映射，使你的样式表更具动态性和可维护性。通过组合和自定义这些函数，你可以大大简化你的`CSS`代码，提升开发效率。
 :::
-**1. 颜色函数**
+### 1. 颜色函数
 
 `lighten($color, $amount)` 使颜色变亮。
 ```scss
@@ -294,7 +294,7 @@ $base-color: #ff5500;
 
 ![alt text](./image/rgba.png)
 
-**2. 数学函数**
+### 2. 数学函数
 `percentage($value)` 将一个数值转换为百分比。
 ```scss
 $decimal: 0.5;
@@ -310,7 +310,7 @@ $number: 1.5;
 }
 ```
 
-**3. 字符串函数**
+### 3. 字符串函数
 
 `quote($string)` 将字符串包裹在引号中。
 ```scss
@@ -327,7 +327,7 @@ $unquote-string: hello;
 }
 ```
 
-**4. 列表函数**
+### 4. 列表函数
 
 `length($list)` 返回列表的长度。
 ```scss
@@ -355,7 +355,7 @@ $list: 1px solid red;
 }
 ```
 
-**5. 映射（Map）函数**
+### 5. 映射（Map）函数
 
 `map-get($map, $key)` 从映射中获取值。
 
@@ -370,7 +370,7 @@ $map: (key1: 'name', key2: 'age');
 }
 ```
 
-**6. 内置函数组合**
+### 6. 内置函数组合
 
 可以多个函数组合使用，例如：
 ```scss
@@ -380,7 +380,7 @@ $base-color: #333;
 }
 ```
 
-**7. 自定义函数**
+### 7. 自定义函数
 
 你还可以定义自己的 `Sass`函数，使用`@function`指令。例如：
 
@@ -393,4 +393,237 @@ $base-color: #333;
   width: double(10px);
 }
 ```
+## 插值语法
+
+`Sass`的插值语法,允许你在`CSS`规则、属性、选择器和其他地方动态地插入变量或表达式的值。插值语法使用 `#{命名名称} ` 形式。
+
+  ### 1.在选择器中使用插值
+  你可以在选择器中使用插值来动态生成类名、ID或其他选择器。
+  ```scss
+  $base-class: "btn";
+
+  .#{$base-class}-primary {
+    background-color: blue;
+    color: white;
+  }
+
+  // 生成的scss
+  .btn-primary {
+    background-color: blue;
+    color: white;
+  }
+  ```
+
+  ### 2.在选择器中使用插值
+
+  你可以在属性名中使用插值来动态生成属性。
+  ```scss
+  $property: "margin";
+
+  .element {
+    #{$property}-top: 10px;
+    #{$property}-bottom: 20px;
+  }
+
+  // 生成的css
+  .element {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  ```
+
+  ### 3. 在属性值中使用插值
+
+  你可以在属性值中使用插值来动态生成值。
+  ```scss
+  $size: 10px;
+
+  .element {
+    width: #{$size * 2};
+    height: #{$size * 3};
+  }
+
+  // 生成的css
+  .element {
+    width: 20px;
+    height: 30px;
+  }
+  ```
+
+  ### 4. 在字符串中使用插值
+
+  你可以在字符串中使用插值来动态生成字符串内容。
+   ```scss
+   $theme: "dark";
+
+  body {
+    font-family: "Helvetica #{$theme} Light", sans-serif;
+  }
+
+  // 生成的css
+  body {
+    font-family: "Helvetica dark Light", sans-serif;
+  }
+  ```
+
+### 5. 在@import和@use中使用插值
+
+你可以在@import和@use语句中使用插值来动态导入文件。
+ ```scss
+  $theme: "dark";
+
+  @import "themes/#{$theme}";
+
+```
+这会导入 `themes/dark.scss` 文件。
+
+### 6. 在@if@else中使用
+ ```scss
+//  @mixin theme($theme) 是一个Sass混合器，它接受一个参数 $theme。
+// 根据传入的 $theme 值（'dark'、'light' 或其他），它会生成不同的背景色和文字颜色。
+ @mixin theme($theme) {
+  @if $theme == 'dark' {
+    background-color: #333;
+    color: #fff;
+  } @else if $theme == 'light' {
+    background-color: #fff;
+    color: #000;
+  } @else {
+    background-color: red;
+    color: blue;
+  }
+}
+// 通过 @include 使用
+.my-dark-theme {
+  @include theme('dark');
+}
+
+// 编译后的结果
+.my-dark-theme {
+  background-color: #333;
+  color: #fff;
+}
+ ```
+
+### 在循环@each
+
+::: tip
+ 结合循环和插值语法，你可以动态生成一系列规则。`@each` 跟平常我们经常写的 `JavaScript`的`forEach()`类似。
+:::
+
+SASS中的@each通常是用来迭代一个list或者map的，其公式为：`@each <variable> in <expression>`。
+
+```scss
+  $number: 10, 20, 30, 40;
+  @each $size in $number {
+    .box-#{$size} {
+      padding: $size'px';
+    }
+  }
+```
+编译生成的css为: 
+```scss
+.box-10 {
+  padding: 10px;
+}
+.box-20 {
+  padding: 20px;
+}
+.box-30 {
+  padding: 30px;
+}
+.box-40 {
+  padding: 40px;
+}
+```
+
+`@each` 还可以 以`key/value`的形式遍历, 跟`JavaScript`中的`for in ` 有些类似。
+ ```scss
+  $colors: (primary: blue, secondary: green, danger: red);
+
+  @each $name, $color in $colors {
+    .text-#{$name} {
+      color: $color;
+    }
+  }
+ ```
+ 编译生成的css：
+  ```scss
+  .text-primary {
+    color: blue;
+  }
+
+  .text-secondary {
+    color: green;
+  }
+
+  .text-danger {
+    color: red;
+  }
+ ```
+
+ ### @mixin 和 function
+
+ 可以使用mixin和function中使用插值来动态生成样式。
+
+```scss
+@mixin size($property, $value) {
+  #{$property}: $value;
+}
+
+.element {
+  @include size(margin-top, 10px);
+}
+```
+编译生成的css：
+```scss
+.element {
+  margin-top: 10px;
+}
+```
+
+### @debug、@error和@warn
+
+::: tip
+`SASS`中的`@debug、@error、@warn`分别和`JavaScript`中的`console.log()、console.error()、console.warn()`类似。
+:::
+`@debug`可以打印一些信息，在这调试一些表达式或变量值的时候非常有用，如下：
+```scss
+@mixin position($name, $position, $topOrBottom, $leftOrRight) {
+  @debug $name, $position;
+  #{$name}.is-#{$position} {
+    position: $position;
+    #{$topOrBottom}: 0;
+    #{$leftOrRight}: 0;
+  }
+}
+@include position('.box', 'absolute', 'top', 'left');
+
+打印内容
+".box", "absolute"
+```
+`@warn`和`@error`通常用来对外部传入的值进行校验，看是否符合规范，如果不符合则提示警告信息和报错信息，例如：
+```scss
+@mixin position($name, $position, $topOrBottom, $leftOrRight) {
+  @if $position != 'relative' and $position != 'absolute' {
+    @warn 'position must be relative or absolute'
+  };
+  @if $topOrBottom != 'top' and $topOrBottom != 'bottom' {
+    @error 'topOrBottom must be top or bottom'
+  };
+  #{$name}.is-#{$position} {
+    position: $position;
+    #{$topOrBottom}: 0;
+    #{$leftOrRight}: 0;
+  }
+}
+@include position('.box', 'fixed', 'top1', 'left');
+
+// 警告内容
+Warning: "position must be relative or absolute"
+// 报错内容
+Error: "topOrBottom must be top or bottom"
+```
+
+
 
