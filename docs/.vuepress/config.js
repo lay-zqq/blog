@@ -8,7 +8,10 @@
  */
 const nav = require('./utils/nav.js')
 const { ua }  = require('./ua.js')
-const { webpackSidebar, vueAnalysisSidebar, vueNextAnalysisSidebar } = nav
+const navConfig = require('./configs/nav.js') 
+const sidebarConfig = require('./configs/sidebar.js')
+const { technologyStackNav } = navConfig
+const {JavaScriptSidebar} = sidebarConfig
 module.exports = {
   title: '曾同学',
   description: '曾同学的个人博客',
@@ -19,11 +22,13 @@ module.exports = {
   ],
   port: 3000,
   markdown: {
-    lineNumbers: false
+    // lineNumbers: false
+    code: {
+      lineNumbers: false
+    }
   },
   themeConfig: {
     lastUpdated: '最后更新时间',
-    sidebar: 'auto',
     repo: 'https://github.com/lay-zqq/blog',
     repoLabel: 'Github',
     nav: [
@@ -31,19 +36,26 @@ module.exports = {
         text: '知识汇总',
         link: '/knowledge/'
       },
+      // ...technologyStackNav
       {
-        text: '88', 
-        link: '/interview/'
-      },
-      {
-        text: '开发技巧',
-        link: '/developmentSkills/'
-      }
+        text: '前端技术栈',
+        items: [
+        { text: 'Javascript', link: '/javascript/base/' }, 
+        ]
+      }, 
+      // {
+      //   text: '88', 
+      //   link: '/interview/'
+      // },
+      // {
+      //   text: '开发技巧',
+      //   link: '/developmentSkills/'
+      // }
     ],
     sidebar: {
-      '/webpack/webpack/': [webpackSidebar],
-      '/vueAnalysis/': vueAnalysisSidebar,
-      '/vueNextAnalysis/': vueNextAnalysisSidebar,
+      // '/javascript/base/': [JavaScriptSidebar],
+      // '/vueAnalysis/': vueAnalysisSidebar,
+      // '/vueNextAnalysis/': vueNextAnalysisSidebar,
     }
   },
   configureWebpack: {
