@@ -13,8 +13,8 @@ const sidebarConfig = require('./configs/sidebar.js')
 const { technologyStackNav } = navConfig
 const {JavaScriptSidebar} = sidebarConfig
 module.exports = {
-  title: '曾同学',
-  description: '曾同学的个人博客',
+  title: '归零',
+  description: '归零的个人博客',
   base: '/blog/',
   head: [
     ['link', { rel: 'icon', href: '/icon.png' }],
