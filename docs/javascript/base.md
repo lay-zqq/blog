@@ -421,3 +421,48 @@ Promise.race([promise1, promise2, promise3])
         console.error(error); // 第一个被拒绝的 Promise 的错误
     });
 ```
+
+### async/await
+
+`async/await` 是 `JavaScript` 中用于处理异步操作的语法糖，它基于 `Promise`，使得异步代码看起来更像同步代码，从而提高可读性和可维护性
+`async` 关键字用于声明一个异步函数。一个 `async` 函数总是返回一个 `Promise`，即使在函数体内使用 `return` 返回一个非 `Promise `的值，返回的值也会被自动转换为 `Promise`。
+如果 `async` 函数内发生错误，它会返回一个被拒绝的 Promise。
+```javascript
+// 用 async 声明一个函数
+async function myAsyncFunction() {
+    return "Hello, World!";
+}
+// 调用这个函数
+myAsyncFunction().then(result => {
+    console.log(result); // 输出: "Hello, World!"
+});
+```
+
+`await` 关键字只能在 `async` 函数中使用，它用于等待一个 `Promise` 的解决`（fulfilled）`或拒绝`（rejected`）。在 `await `之后的表达式将暂停执行，直到 `Promise` 被解决或拒绝。
+```javascript
+async function fetchData() {
+  // 使用 async await 语法糖就是异步的代码执行的顺序跟同步代码的执行顺序是一样的。
+  const response = await fetch('https://api.example.com/data');
+  const data = await response.json();
+  return data;
+}
+```
+**串行与并行执行**
+有时候在函数中有多个await 表达式将导致他们一个接一个执行，这可能导致不必要的等待,这也叫`串行`。所以这个时候我们就要想办法让他们一起执行也就是`并行执行`。
+要实现并行执行，我们可以使用`Promise.all()`，在 `await` 之前调用这些 `Promise`。
+```javascript
+// 串行的展示示例
+async function fetchDataSequentially() {
+  const data1 = await fetchData1();
+  const data2 = await fetchData2();
+  return [data1, data2];
+}
+
+// 并行执行的展示示例
+async function fetchDataConcurrently() {
+  const promise1 = fetchData1(); // 不等待
+  const promise2 = fetchData2(); // 不等待
+  const [data1, data2] = await Promise.all([promise1, promise2]);
+  return [data1, data2];
+}
+```
