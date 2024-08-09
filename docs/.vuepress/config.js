@@ -33,14 +33,15 @@ module.exports = {
     repoLabel: 'Github',
     nav: [
       {
-        text: '知识汇总',
-        link: '/knowledge/'
+        text: '面试题',
+        link: '/interview/'
       },
       // ...technologyStackNav
       {
         text: '前端技术栈',
         items: [
         { text: 'Javascript', link: '/javascript/base/' }, 
+        { text: 'SASS', link: '/knowledge/' }, 
         ]
       }, 
       // {
