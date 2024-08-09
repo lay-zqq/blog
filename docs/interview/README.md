@@ -1,11 +1,10 @@
 ---
 sidebar: auto
 ---
-# 99
 
-## Html试题
+# Html试题
 
-### 行内元素和块级元素
+## 行内元素和块级元素
 1)行内元素
 ```html
 <span>、<a>、<b>、<strong>、<img>、<input>、<textarea>、<select>、<em>、<del>
@@ -15,21 +14,7 @@ sidebar: auto
 <address>、<center>、<h1>~<h6>、<p>、<pre>、<ul>、<ol>、<dl>、<table>、<div>、<form>
 ```
 
-### BFC
-::: tip
-BFC全称`Block Formatting Context` ,中文为 “块级格式化上下文”。
-流体特性：块级水平元素，如div元素（下同），在默认情况下（非浮动，绝对定位等），水平方向会自动填满外部的容器。
-BFC元素特性表现原则是，内部子元素不会影响外部的元素。
-:::
-
-### 弹性布局
-::: tip
-解决某元素中“子元素”是、的布局方式，为布局提供最大是灵活性。
-设为`flex`布局以后，子元素的`float`、`clear`和`vertical-align`属性将失效!!!
-display: flex;属性 align-self 定义子元素的位置
-:::
-
-### html5新特性
+## html5新特性
 * (1) `canvas`绘图
 * (2) `SVG`绘图
 * (3) `地理定位`
@@ -42,7 +27,50 @@ display: flex;属性 align-self 定义子元素的位置
 * (6) `Web Socket`
 * **WebSocket协议是基于TCP的一种新的网络协议。它实现了浏览器与服务器全双工（full-duplex）通信————允许服务器主动发送信息给客户端**
 
-### position 属性
+## 空元素
+
+::: tip
+  既没有内容的HTML元素，例如： br、meta、hr、link、input、img
+:::
+
+## 初始化css样式原因
+
+**1 浏览器差异**
+不同浏览器对有些标签的默认值是不同的，如果没有对css进行初始化会出现浏览器之间的页面显示差异
+**2 提高编码质量**
+如果不初始化，整个页面做完会很糟糕，重复的css样式很多。
+**3 支持不同的 CSS 框架**
+当使用 CSS 框架（如 Bootstrap、Foundation 等）时，初始化样式有助于避免框架与浏览器默认样式之间的冲突，确保框架元素按照预期的样式展示
+**4 提高响应式设计的灵活性**
+当使用 CSS 媒体查询进行响应式设计时，初始化样式可以帮助确保在不同的视口下，元素的外观不会受到浏览器默认样式的影响，使得设计更具灵活性。
+
+
+# CSS系列
+## BFC
+::: tip
+BFC全称`Block Formatting Context` ,中文为 “块级格式化上下文”。
+流体特性：块级水平元素，如div元素（下同），在默认情况下（非浮动，绝对定位等），水平方向会自动填满外部的容器。
+BFC元素特性表现原则是，内部子元素不会影响外部的元素。
+:::
+**BFC的应用**
+* 清除浮动：父元素设置overflow: hidden触发BFC实现清除浮动，防止父元素高度塌陷，后面的元素被覆盖，实现文字环绕等等。
+* 消除相邻元素垂直方向的边距重叠：第二个子元素套一层，并设置overflow: hidden，构建BFC使其不影响外部元素。
+* 消除父子元素边距重叠，父元素设置overflow: hidden
+
+**触发BFC的方式**
+1、float 不为 none，浮动元素所在的区域就是一个 BFC 区域。
+2、position 的值不是 static 或 relative 的元素所在的区域就是一个 BFC 区域
+3、display为 table-cell 的表格单元格元素所在的区域也是一个 BFC 区域
+4、overflow 不为 visible 的元素所在的区域也是一个 BFC 区域
+
+## 弹性布局
+::: tip
+解决某元素中“子元素”是、的布局方式，为布局提供最大是灵活性。
+设为`flex`布局以后，子元素的`float`、`clear`和`vertical-align`属性将失效!!!
+display: flex;属性 align-self 定义子元素的位置
+:::
+
+## position 属性
 * 1 position: relative; 相对定位
 
 * 2 position: absolute; 绝对定位
@@ -57,7 +85,8 @@ display: flex;属性 align-self 定义子元素的位置
 
 * 7 position: initial 设置该属性为默认值
 
-### 盒子在页面水平垂直居中
+## 盒子在页面水平垂直居中
+
 **方法一：已知盒子宽高**
 ```css
   div {
@@ -79,8 +108,73 @@ display: flex;属性 align-self 定义子元素的位置
     transform: translate(-50%,-50%);
   }
 ```
+**方法三：Flexbox**
+```html
+<div class="container">
+    <div class="box">居中盒子</div>
+</div>
 
-### css选择器优先级顺序
+<style>
+  .container {
+    display: flex;          /* 使用 Flexbox 布局 */
+    justify-content: center; /* 水平居中 */
+    align-items: center;    /* 垂直居中 */
+    height: 100vh;         /* 设定高度为视口高度 */
+  }
+
+  .box {
+    width: 200px;
+    height: 100px;
+    background-color: lightblue;
+  }
+</style>
+```
+**方法四：Grid**
+```html
+<div class="container">
+    <div class="box">居中盒子</div>
+</div>
+
+<style>
+  .container {
+    display: grid;           /* 使用 Grid 布局 */
+    place-items: center;     /* 同时水平和垂直居中 */
+    height: 100vh;          /* 设定高度为视口高度 */
+  }
+
+  .box {
+    width: 200px;
+    height: 100px;
+    background-color: lightblue;
+  }
+</style>
+```
+**方法五：传统的块级元素对齐**
+```html
+<div class="container">
+    <div class="box">居中盒子</div>
+</div>
+
+<style>
+  .container {
+    display: table;           /* 设定为表格布局 */
+    width: 100%;             /* 100% 宽度 */
+    height: 100vh;           /* 设定高度为视口高度 */
+  }
+
+  .box {
+    display: table-cell;      /* 设定为单元格 */
+    vertical-align: middle;   /* 垂直居中 */
+    text-align: center;       /* 水平居中文本 */
+    width: 200px;
+    height: 100px;
+    margin: 0 auto;          /* 水平居中盒子 */
+    background-color: lightblue;
+  }
+</style>
+```
+
+## css选择器优先级顺序
 
 * **ID选择器，如** #box {}
 * **类选择器，如** 。box {}
@@ -89,22 +183,4 @@ display: flex;属性 align-self 定义子元素的位置
 * **伪元素选择器，如** ::before {}
 * **标签选择器，如** div {}
 * **通配选择器，如** * {}
-
-### 空元素
-
-::: tip
-  既没有内容的HTML元素，例如： br、meta、hr、link、input、img
-:::
-
-### 初始化css样式原因
-
-**1 浏览器差异**
-
-**不同浏览器对有些标签的默认值是不同的，如果没有对css进行初始化会出现浏览器之间的页面显示差异**
-
-**2 提高编码质量**
-
-**如果不初始化，整个页面做完会很糟糕，重复的css样式很多。**
-
-
  
